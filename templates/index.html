@@ -1,0 +1,305 @@
+<!-- <html>
+    <body>
+
+        <form action = "{{ url_for('predict')}}" method="POST">
+            <input type ="text" name = "bookTitle"/>
+            <button type = "submit">predict</button>
+        </form>
+        {{prediction_text}}
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Just Read It!</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-image: url("https://st3.depositphotos.com/8852212/31719/i/450/depositphotos_317199240-stock-photo-blurred-bookshelf-many-old-books.jpg"); */
+  background-image: url("https://media.istockphoto.com/photos/bookshelves-and-laptops-are-placed-on-the-library-deskelearning-class-picture-id1177967778?k=20&m=1177967778&s=612x612&w=0&h=ZN9cQR6jog3wcWDsB5bUIqLRi_pLCr1Er7p6UioAQ8E=");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Style the header */
+header {
+  
+  /* background-image: url("https://images.indianexpress.com/2021/06/Untitled-design-4-1.png"); */
+  /* background-image: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZnJlZSUyMGxpYnJhcnl8ZW58MHx8MHx8&w=1000&q=80"); */
+  /* background-image : url("https://media.istockphoto.com/photos/book-stack-is-placed-on-the-library-desk-education-background-back-to-picture-id974627906?k=20&m=974627906&s=170667a&w=0&h=dpBLPupbN-7GZEDvR21R5cJlo9bVkH4LyaUAg_3v414=") */
+  /* opacity: 0.7; */
+  padding: 50px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+  /* background-image: url("https://st3.depositphotos.com/8852212/31719/i/450/depositphotos_317199240-stock-photo-blurred-bookshelf-many-old-books.jpg"); */
+
+}
+
+
+
+
+
+ .button {
+        background-color: white;
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        transition: transform .2s;
+    }
+
+.button:hover {
+        -ms-transform: scale(1.5); /* IE 9 */
+        -webkit-transform: scale(1.5); /* Safari 3-8 */
+        transform: scale(1.5);
+}
+
+input[type=text], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+article {
+  /* float: left; */
+   /* background-image: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZnJlZSUyMGxpYnJhcnl8ZW58MHx8MHx8&w=1000&q=80");  */
+  /* background-image : url("https://media.istockphoto.com/photos/book-stack-is-placed-on-the-library-desk-education-background-back-to-picture-id974627906?k=20&m=974627906&s=170667a&w=0&h=dpBLPupbN-7GZEDvR21R5cJlo9bVkH4LyaUAg_3v414=") */
+  color: white;
+  /* opacity: 0.7; */
+  padding: 20px;
+  width: 100%;
+  
+  /* background-color: #f1f1f1;
+  height: 600px; /* only for demonstration, should be removed */
+  /* font-size: 35px;
+ background-image: url("https://st3.depositphotos.com/8852212/31719/i/450/depositphotos_317199240-stock-photo-blurred-bookshelf-many-old-books.jpg"); */ */
+
+}
+.books{
+  font-size: 20px;
+}
+
+
+
+/* Clear floats after the columns */
+/* section::after {
+  content: "";
+  display: table;
+  clear: both;
+} */
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  bottom: 0px;
+  text-align: center;
+  color: white;
+  
+}
+
+a
+{
+	    /* text-align: center; */
+	border-radius: 4px;
+	position:relative;
+  display: block;
+	color:white;
+	background-color: transparent;
+	cursor: pointer;
+	text-decoration: none;
+	box-sizing: border-box;
+	margin:2% 4% 2% 4%;
+}
+a:hover
+{
+  background-color:rgba(61, 54, 54, 0.226);
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.nav{
+  float: left;
+}
+
+.nav a{
+  display: block;
+  padding: 8px;
+  background-color: #3e3b3b;
+}
+.nav a:hover
+{
+  background-color:rgba(61, 54, 54, 0.226);
+}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left:0;
+  height:70px;
+  
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  /* padding: 14px 16px; */
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="topnav">
+    <!-- <li class="nav"><a href="{{ url_for('homepage')}}">Home</a></li> -->
+    <a href="{{ url_for('graphpage')}}">Graphs</a>
+    <a href="{{ url_for('aboutus')}}">About us</a>
+    <a href="{{ url_for('books')}}">Books</a>
+  </div>
+  
+  <h2>Just Read it!</h2>
+
+  <i>A book recommendation system</i><br>
+  <!-- <a href="{{ url_for('graphpage')}}">graphs</a> -->
+  <!-- <a href="{{ url_for('descPage')}}">description</a> -->
+  <!-- <a href = "description.html">description</a> -->
+</header>
+
+<article>
+  <h1>Enter a book that you have read and liked before: </h1>
+  
+  <form action = "{{ url_for('predict')}}" method="POST">
+    <!-- <input type="text" name="bookTitle" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+    <ul>
+    {% for b in book_titles %}
+          <li>
+            {{b}}
+          </li>
+    {% endfor %}
+  </ul> -->
+  <input type ="text" name = "bookTitle"/>
+  <button type = "submit" class = "button">Recommend</button>
+  </form>
+
+  
+  <!-- <script>
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("li")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+    </script> -->
+  
+  <h2>Your book recommendations are: </h2>
+  <!-- ---------------------------------- 
+  not required-->
+  <!-- <ul>
+    {% for t in prediction_text %}
+      <li>
+        {{t}}
+      </li>
+    {% endfor %}
+  </ul>
+    ---------------------------------------- -->
+     <ul>
+      {% for t in prediction_text %}
+        <li class="books">
+          <a href="{{ url_for('infoPage', bookName = t )}}">{{t}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <!-- ------------------------------------------ -->
+  <!-- <form action = "{{ url_for('predict')}}" method="GET"> 
+    <select class="btn btn-secondary dropdown-toggle" style="background-color: #FFFFFF; color:  #105583;" name="book_titles" size="5">
+          <option  disabled selected value= "">Select the option</option>
+        {% for t in book_titles %}
+          <option value= "{{t}}">{{t}}</option>
+        {% endfor %}
+    </select>
+    <button type = "submit" class = "button">Recommend</button>
+  </form>
+  <ul>
+      {% for t in prediction_text %}
+        <li class="books">
+          <a href="{{ url_for('infoPage', bookName = t )}}">{{t}}</a>
+        </li>
+      {% endfor %}
+    </ul> -->
+   
+</article>
+</section>
+
+
+
+
+
+<!-- <footer>
+  <p>" Life is a book and there are a thousand pages I have not read yet. "</p>
+</footer> -->
+
+</body>
+</html>
+
+

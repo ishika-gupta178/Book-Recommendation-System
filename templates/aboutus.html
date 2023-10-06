@@ -1,0 +1,260 @@
+<!-- <html>
+    <body>
+
+        <form action = "{{ url_for('predict')}}" method="POST">
+            <input type ="text" name = "bookTitle"/>
+            <button type = "submit">predict</button>
+        </form>
+        {{prediction_text}}
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Just Read It!</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-image: url("https://st3.depositphotos.com/8852212/31719/i/450/depositphotos_317199240-stock-photo-blurred-bookshelf-many-old-books.jpg"); */
+  background-image: url("https://media.istockphoto.com/photos/bookshelves-and-laptops-are-placed-on-the-library-deskelearning-class-picture-id1177967778?k=20&m=1177967778&s=612x612&w=0&h=ZN9cQR6jog3wcWDsB5bUIqLRi_pLCr1Er7p6UioAQ8E=");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Style the header */
+header {
+  
+  /* background-image: url("https://images.indianexpress.com/2021/06/Untitled-design-4-1.png"); */
+  /* background-image: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZnJlZSUyMGxpYnJhcnl8ZW58MHx8MHx8&w=1000&q=80"); */
+  /* background-image : url("https://media.istockphoto.com/photos/book-stack-is-placed-on-the-library-desk-education-background-back-to-picture-id974627906?k=20&m=974627906&s=170667a&w=0&h=dpBLPupbN-7GZEDvR21R5cJlo9bVkH4LyaUAg_3v414=") */
+  /* opacity: 0.7; */
+  padding: 50px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+  /* background-image: url("https://st3.depositphotos.com/8852212/31719/i/450/depositphotos_317199240-stock-photo-blurred-bookshelf-many-old-books.jpg"); */
+
+}
+
+
+
+
+
+.button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+input[type=text], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+article {
+  /* float: left; */
+   /* background-image: url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZnJlZSUyMGxpYnJhcnl8ZW58MHx8MHx8&w=1000&q=80");  */
+  /* background-image : url("https://media.istockphoto.com/photos/book-stack-is-placed-on-the-library-desk-education-background-back-to-picture-id974627906?k=20&m=974627906&s=170667a&w=0&h=dpBLPupbN-7GZEDvR21R5cJlo9bVkH4LyaUAg_3v414=") */
+  color: white;
+  /* opacity: 0.7; */
+  padding: 20px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bolder;
+  
+  /* background-color: #f1f1f1;
+  height: 600px; /* only for demonstration, should be removed */
+  /* font-size: 35px;
+ background-image: url("https://st3.depositphotos.com/8852212/31719/i/450/depositphotos_317199240-stock-photo-blurred-bookshelf-many-old-books.jpg"); */ */
+
+}
+.books{
+  font-size: 20px;
+}
+
+
+
+/* Clear floats after the columns */
+/* section::after {
+  content: "";
+  display: table;
+  clear: both;
+} */
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  bottom: 0px;
+  text-align: center;
+  color: white;
+  
+}
+
+a
+{
+	    /* text-align: center; */
+	border-radius: 4px;
+	position:relative;
+  display: block;
+	color:white;
+	background-color: transparent;
+	cursor: pointer;
+	text-decoration: none;
+	box-sizing: border-box;
+	margin:2% 4% 2% 4%;
+}
+a:hover
+{
+  background-color:rgba(61, 54, 54, 0.226);
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.nav{
+  float: left;
+}
+
+.nav a{
+  display: block;
+  padding: 8px;
+  background-color: #3e3b3b;
+}
+.nav a:hover
+{
+  background-color:rgba(61, 54, 54, 0.226);
+}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left:0;
+  height:70px;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  /* padding: 14px 16px; */
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<header>
+  <!-- <ul>
+    <li class="nav"><a href="{{ url_for('homepage')}}">Home</a></li>
+    <li class="nav"><a href="{{ url_for('graphpage')}}">Graphs</a></li>
+    <li class="nav"><a href="{{ url_for('aboutus')}}">About us</a></li>
+  </ul> -->
+  <div class="topnav">
+    <!-- <li class="nav"><a href="{{ url_for('homepage')}}">Home</a></li> -->
+    <a href="{{ url_for('graphpage')}}">Graphs</a>
+    <a href="{{ url_for('aboutus')}}">About us</a>
+    <a href="{{ url_for('homepage')}}">Home</a>
+    <a href="{{ url_for('books')}}">Books</a>
+  </div>
+  
+  <h2>Just Read it!</h2>
+
+  <i>A book recommendation system</i><br>
+  <!-- <a href="{{ url_for('graphpage')}}">graphs</a> -->
+  <!-- <a href="{{ url_for('descPage')}}">description</a> -->
+  <!-- <a href = "description.html">description</a> -->
+</header>
+
+<article>
+  <p>
+    Books play a very important role in every person's life by introducing them to a world of imagination, providing knowledge of
+     the outside world, improving their reading, writing and speaking skills as well as boosting memory and intelligence, all of
+     which are quite necessary for different aspects of life.
+  </p>
+  <p>
+    There exists many potential readers, but due to the abundance of information present on the internet, many of these people 
+    find it extremely hard to search for books that they might like and might inculcate in them a habit of reading, which is 
+    always encouraged. This could result in a huge loss as a lack of readings results in poor language skills, cultural 
+    ignorance, and a fear of books. Furthermore, many people ask for book recommendations from their friends and families who 
+    might not always suggest the right book as they do not have knowledge about the numerous books that are available.
+  </p>
+  <p>
+    How convenient if all this process was taken care of automatically and recommended the book efficiently? A recommendation 
+    system is the answer to this question.
+  </p>
+  <p>
+    Consequently, the main aim of our mini project is to build a book recommendation system. It can be used by anyone, and does 
+    not require any login making it much more accessible and easy to use. The user needs to just 
+    enter the title of the book that they have read and liked before, and based on the genre and rating given to the book,
+    10 books will be recommended to the user that are the most similar to the book.
+    that they have entered.
+  </p>
+  <p>
+    Happy reading!
+  </p>
+</article>
+</section>
+
+
+
+
+
+<!-- <footer>
+  <p>" Life is a book and there are a thousand pages I have not read yet. "</p>
+</footer> -->
+
+</body>
+</html>
+
+
